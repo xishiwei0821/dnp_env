@@ -4,23 +4,57 @@
 docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
 目前php环境尚未配置扩展，如需要安装扩展，手动配置或者进入php容器进行安装
 
-```
-    docker exec -it <php容器名> /bin/bash
-```
-
-#### 软件架构
-
-
 #### 安装教程
 
 1.  克隆代码
 
-```
+``` bash
     git clone https://jihulab.com/xishiwei1/dnmp_environment.git
 ```
 
 2.  docker compose运行
 
-```
+``` bash
     docker-compose up -d
+```
+
+#### php扩展配置
+
+``` bash
+    # 先进入到php容器内部
+    docker exec -it <docker-name> /bin/bash
+
+    # 更新apt包
+    apt update
+
+    # 安装常用（pdo_mysql,bcmath,gettext,pcntl,sockets）
+    docker-php-ext-install pdo_mysql bcmath gettext pcntl sockets
+
+    # 安装composer
+    php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
+    mv composer.phar /usr/local/bin/composer
+
+    # 安装zip扩展
+    apt install libzip-dev
+    docker-php-ext-install zip
+
+    # 安装gd库并配置freetype
+    apt install libpng-dev libjpeg-dev libwebp-dev
+    apt install libfreetype-dev
+    docker-php-ext-configure gd --with-php-config=/usr/local/bin/php-config --with-freetype --with-jpeg --with-webp
+    docker-php-ext-install gd
+
+    # 安装swoole
+    pecl install swoole
+    # 安装redis
+    pecl install redis
+    # 安装xlswriter
+    pecl install xlswriter
+
+    # pecl安装的扩展，需要在php.ini中添加
+    extension=swoole
+    extension=redis
+    extension=xlswriter
 ```

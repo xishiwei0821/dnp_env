@@ -9,7 +9,7 @@ docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
 1.  克隆代码
 
 ``` bash
-    git clone https://jihulab.com/xishiwei1/dnmp_environment.git
+    git clone <git地址>
 ```
 
 2.  docker compose运行

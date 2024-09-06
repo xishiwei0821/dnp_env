@@ -35,6 +35,7 @@ services:
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php/php-fpm.conf:rw
       - ${PHP_FPM_CONF_DIR}:/usr/local/etc/php/php-fpm.d:rw
+      - ${SUPERVISOR_CONF}:/etc/supervisor/conf.d
       - ${SOURCE_DIR}:/code/:rw
 
   # php8.2-fpm:

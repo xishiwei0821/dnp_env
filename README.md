@@ -35,23 +35,29 @@ docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
     php composer-setup.php
     php -r "unlink('composer-setup.php');"
     mv composer.phar /usr/local/bin/composer
+    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
     # 安装zip扩展
-    apt install libzip-dev
+    apt install -y libzip-dev
     docker-php-ext-install zip
 
     # 安装gd库并配置freetype
-    apt install libpng-dev libjpeg-dev libwebp-dev
-    apt install libfreetype-dev
+    apt install -y libpng-dev libjpeg-dev libwebp-dev libfreetype-dev
     docker-php-ext-configure gd --with-php-config=/usr/local/bin/php-config --with-freetype --with-jpeg --with-webp
     docker-php-ext-install gd
 
     # 安装swoole
     pecl install swoole
+    # 如果版本过低，无法安装最新版
+    pecl install https://pecl.php.net/get/swoole-4.8.10.tgz
     # 安装redis
     pecl install redis
     # 安装xlswriter
     pecl install xlswriter
+
+    # 安装supervisor
+    apt install -y supervisor
+    supervisord -c /etc/supervisor/supervisord.conf
 
     # pecl安装的扩展，需要在php.ini中添加
     extension=swoole

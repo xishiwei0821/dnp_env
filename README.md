@@ -12,10 +12,22 @@ docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
     git clone <git地址>
 ```
 
-2.  docker compose运行
+3. 配置文件
+
+``` bash
+    # 复制 .env.sample .env 添加配置文件
+```
+
+4.  docker compose运行
 
 ``` bash
     docker-compose up -d
+
+    # 如果运行慢 配置文件中配置镜像源
+    "registry-mirrors": [
+        "https://registry.docker-cn.com",
+    ]
+    
 ```
 
 #### php扩展配置

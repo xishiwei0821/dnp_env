@@ -42,13 +42,6 @@ docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
     # 安装常用（pdo_mysql,bcmath,gettext,pcntl,sockets）
     docker-php-ext-install pdo_mysql bcmath gettext pcntl sockets
 
-    # 安装composer
-    php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
-    php composer-setup.php
-    php -r "unlink('composer-setup.php');"
-    mv composer.phar /usr/local/bin/composer
-    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-
     # 安装zip扩展
     apt install -y libzip-dev
     docker-php-ext-install zip
@@ -75,4 +68,11 @@ docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
     extension=swoole
     extension=redis
     extension=xlswriter
+
+    # 安装composer
+    php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
+    mv composer.phar /usr/local/bin/composer
+    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 ```

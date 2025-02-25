@@ -3,7 +3,7 @@
 #### 介绍
 docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
 
-~~ 目前php环境尚未配置扩展，如需要安装扩展，手动配置或者进入php容器进行安装 ~~
+~~目前php环境尚未配置扩展，如需要安装扩展，手动配置或者进入php容器进行安装~~
 
 ####  添加php Dockerfile文件，编译一些常用扩展。
 - pdo_mysql

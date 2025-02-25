@@ -4,6 +4,19 @@
 docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
 目前php环境尚未配置扩展，如需要安装扩展，手动配置或者进入php容器进行安装
 
+####  添加php Dockerfile文件，编译一些常用扩展。
+- pdo_mysql
+- bcmath
+- gettext
+- pcntl
+- sockets
+- zip
+- gd
+- swoole
+- redis
+- xlswriter
+- composer
+
 #### 安装教程
 
 1.  克隆代码
@@ -31,6 +44,8 @@ docker环境 docker + nginx + php + mariadb + redis + rabbitmq + mongodb
 ```
 
 #### php扩展配置
+
+### 以下内容已加入到php Dockerfile中，无需配置。
 
 ``` bash
     # 先进入到php容器内部

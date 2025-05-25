@@ -12,7 +12,7 @@ services:
       # - "${NGINX_PUSH_STREAM_PORT}:1935"
     volumes:
       - ${CONF_DIR}/nginx/conf.d:/etc/nginx/conf.d/:rw
-      # - ${CONF_DIR}/nginx/rtmp.d:/etc/nginx/rtmp.d/:rw
+      - ${CONF_DIR}/nginx/modules:/etc/nginx/modules/:rw
       - ${CONF_DIR}/nginx/php-fpm.d:/etc/nginx/php-fpm.d/:rw
       - ${CONF_DIR}/nginx/nginx.conf:/etc/nginx/nginx.conf:rw
       - ${CONF_DIR}/nginx/ssl:/ssl:rw
@@ -32,10 +32,23 @@ services:
       - ${CONF_DIR}/php-7.4/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
       - ${CONF_DIR}/php-7.4/php-fpm.d:/usr/local/etc/php/php-fpm.d
       - ${SOURCE_DIR}:/code/
+  
+  php-fpm-8.1:
+    container_name: php-8.1
+    build: ./conf/php-8.1
+    # image: php:${PHP_VERSION}-fpm
+    restart: always
+    expose:
+      - 9000
+    volumes:
+      - ${CONF_DIR}/php-8.1/php.ini:/usr/local/etc/php/php.ini:rw
+      - ${CONF_DIR}/php-8.1/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
+      - ${CONF_DIR}/php-8.1/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
+      - ${SOURCE_DIR}:/code/:rw
 
   php-fpm-8.2:
     container_name: php-8.2
-    build: ./conf/php-8.2
+    build: ./conf/php
     # image: php:${PHP_VERSION}-fpm
     restart: always
     expose:

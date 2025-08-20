@@ -3,66 +3,46 @@ version: '3'
 services:
   nginx:
     container_name: nginx
-    # image: tiangolo/nginx-rtmp:${NGINX_VERSION}
     image: nginx:${NGINX_VERSION}
-    restart: always
     ports:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
       # - "${NGINX_PUSH_STREAM_PORT}:1935"
     volumes:
-      - ${CONF_DIR}/nginx/conf.d:/etc/nginx/conf.d/:rw
-      - ${CONF_DIR}/nginx/modules:/etc/nginx/modules/:rw
-      - ${CONF_DIR}/nginx/php-fpm.d:/etc/nginx/php-fpm.d/:rw
-      - ${CONF_DIR}/nginx/nginx.conf:/etc/nginx/nginx.conf:rw
-      - ${CONF_DIR}/nginx/ssl:/ssl:rw
+      - ./package/nginx/conf.d:/etc/nginx/conf.d/:rw
+      - ./package/nginx/modules:/etc/nginx/modules/:rw
+      - ./package/nginx/php-fpm.d:/etc/nginx/php-fpm.d/:rw
+      - ./package/nginx/nginx.conf:/etc/nginx/nginx.conf:rw
+      - ./package/nginx/ssl:/ssl:rw
       # - ${DATA_DIR}/nginx/rtmp:/tmp/data/rtmp/:rw
       - ${LOGS_DIR}/nginx:/var/log/nginx:rw
       - ${SOURCE_DIR}:/code/:rw
 
-  php-fpm-7.4:
+  php-7.4:
     container_name: php-7.4
-    build: ./conf/php-7.4
-    # image: php:${PHP_VERSION}-fpm
-    restart: always
+    build: ./package/php/74
     expose:
       - 9000
     volumes:
-      - ${CONF_DIR}/php-7.4/php.ini:/usr/local/etc/php/php.ini:rw
-      - ${CONF_DIR}/php-7.4/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
-      - ${CONF_DIR}/php-7.4/php-fpm.d:/usr/local/etc/php/php-fpm.d
+      - ./package/php/74/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./package/php/74/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
+      - ./package/php/74/php-fpm.d:/usr/local/etc/php/php-fpm.d
       - ${SOURCE_DIR}:/code/
-  
-  php-fpm-8.1:
-    container_name: php-8.1
-    build: ./conf/php-8.1
-    # image: php:${PHP_VERSION}-fpm
-    restart: always
-    expose:
-      - 9000
-    volumes:
-      - ${CONF_DIR}/php-8.1/php.ini:/usr/local/etc/php/php.ini:rw
-      - ${CONF_DIR}/php-8.1/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
-      - ${CONF_DIR}/php-8.1/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
-      - ${SOURCE_DIR}:/code/:rw
 
-  php-fpm-8.2:
-    container_name: php-8.2
-    build: ./conf/php-8.2
-    # image: php:${PHP_VERSION}-fpm
-    restart: always
+  php-8.0:
+    container_name: php-8.0
+    build: package/php/80
     expose:
       - 9000
     volumes:
-      - ${CONF_DIR}/php-8.2/php.ini:/usr/local/etc/php/php.ini:rw
-      - ${CONF_DIR}/php-8.2/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
-      - ${CONF_DIR}/php-8.2/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
+      - ./package/php/80/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./package/php/80/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
+      - ./package/php/80/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
       - ${SOURCE_DIR}:/code/:rw
 
   mariadb:
     container_name: mariadb
     image: mariadb:${MARIADB_VERSION}
-    restart: always
     expose:
       - 3306
     ports:
@@ -77,13 +57,12 @@ services:
   redis:
     container_name: redis
     image: redis:${REDIS_VERSION}
-    restart: always
     expose:
       - 6379
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
-      - ${CONF_DIR}/redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./package/redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
       - ${DATA_DIR}/redis:/data:rw
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
@@ -97,7 +76,7 @@ services:
       - "${RABBITMQ_PORT}:5672"
       - "${RABBITMQ_WEB_PORT}:15672"
     volumes:
-      - ${CONF_DIR}/rabbitmq/conf.d:/etc/rabbitmq/conf.d:rw
+      - ./package/rabbitmq/conf.d:/etc/rabbitmq/conf.d:rw
       - ${LOGS_DIR}/rabbitmq:/var/log/rabbitmq:rw
       - ${DATA_DIR}/rabbitmq:/var/lib/rabbitmq:rw
       - ${DATA_DIR}/rabbitmq/mnesia:/var/lib/rabbitmq/mnesia:rw

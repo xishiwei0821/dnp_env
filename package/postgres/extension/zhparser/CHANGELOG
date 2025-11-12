@@ -1,0 +1,44 @@
+2.2 (2021-11-08)
+-- move custom word from /base/${DATABASE_ID}/zhprs_dict_${DATABASE_NAME}.txt to /base/zhprs_dict_${DATABASE_NAME}.txt(data don't have /base/${DATABASE_ID} when tablespace is setted)
+
+2.1 (2019-04-23)
+-- custom word store in DataDir.
+
+2.0 (2019-03-05)
+-- support custom word in table zhparser.zhprs_custom_word
+
+0.2.0 (2017-05-28)
+-- fix regression test
+-- make pg_config configurable
+-- optimize doc
+
+0.1.5 (2017-05-24)
+-- optimize memory usage for zhparser
+-- support load multi dict
+-- export SCWS settings to GUC
+-- make context of dict_in_memory and extra_dicts to backend,others to userset
+-- fix a bug of unknow type index out of range
+-- detect dict file type from file extension
+-- add check script to run regress
+-- update scws to version 1.2.3 in install doc
+
+0.1.4 (2013-11-03)
+-- fix pgxn meta
+
+0.1.3 （2013-11-03）
+-- resolve the compile warning for pstrdup
+-- add the Chinese dict for SCWS
+-- fix rpath flag which emmit error on Mac OS
+-- update instal doc to note use gmake for *BSD
+-- update install doc to download SCWS from git url 
+
+0.1.2 （2013-10-23）
+-- resolve the pstrdup name conflict for pg 9.3
+
+0.1.1 (2013-02-05)
+-- add CHANGELOG
+-- fmt the doc
+
+0.1.0 (2013-02-04)
+-- init release in pgxn
+-- parse Chinese encode in UTF-8

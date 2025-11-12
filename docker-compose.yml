@@ -69,7 +69,6 @@ services:
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:${RABBITMQ_VERSION}
-    restart: always
     expose:
       - 5672
     ports:
@@ -84,7 +83,6 @@ services:
   mongodb:
     container_name: mongodb
     image: mongo:${MONGO_VERSION}
-    restart: always
     expose:
       - 27017
     ports:
@@ -96,4 +94,18 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_INNTDB_ROOT_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
-
+  
+  postgres:
+    container_name: postgres
+    build: ./package/postgres
+    # image: postgres:${POSTGRES_VERSION}
+    expose:
+      - 5432
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      # - ./package/postgres/extension:/tmp/extensions:rw
+      - ${DATA_DIR}/postgres:/var/lib/postgresql:rw
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      LANG: ${POSTGRES_LANG}

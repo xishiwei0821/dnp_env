@@ -29,15 +29,26 @@ services:
       - ./package/php/74/php-fpm.d:/usr/local/etc/php/php-fpm.d
       - ${SOURCE_DIR}:/code/
 
-  php-8.0:
-    container_name: php-8.0
-    build: package/php/80
+  # php-8.0:
+  #   container_name: php-8.0
+  #   build: package/php/80
+  #   expose:
+  #     - 9000
+  #   volumes:
+  #     - ./package/php/80/php.ini:/usr/local/etc/php/php.ini:rw
+  #     - ./package/php/80/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
+  #     - ./package/php/80/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
+  #     - ${SOURCE_DIR}:/code/:rw
+
+  php-8.1:
+    container_name: php-8.1
+    build: package/php/81
     expose:
       - 9000
     volumes:
-      - ./package/php/80/php.ini:/usr/local/etc/php/php.ini:rw
-      - ./package/php/80/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
-      - ./package/php/80/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
+      - ./package/php/81/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./package/php/81/php-fpm.conf:/usr/local/etc/php/php-fpm.conf:rw
+      - ./package/php/81/php-fpm.d:/usr/local/etc/php/php-fpm.d:rw
       - ${SOURCE_DIR}:/code/:rw
 
   mariadb:
